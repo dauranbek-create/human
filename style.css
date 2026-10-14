@@ -1,0 +1,472 @@
+:root {
+    --bg-dark: #050505;
+    --blood-red: #ff0033;
+    --text-pale: #b0b0b0;
+    --card-bg: #0d0d0d;
+    --border-red: rgba(255, 0, 51, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Special Elite', monospace;
+    background-color: var(--bg-dark);
+    color: var(--text-pale);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Эффект старого телевизора (сканлайны поверх экрана) */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 3px, 6px 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    background: rgba(5, 5, 5, 0.9);
+    border-bottom: 1px solid var(--border-red);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 75px;
+}
+
+.system-status {
+    color: var(--blood-red);
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 1px;
+}
+
+.blink-dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--blood-red);
+    border-radius: 50%;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.1; }
+    100% { opacity: 1; }
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: var(--text-pale);
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.nav a:hover {
+    color: var(--blood-red);
+}
+
+.btn-danger {
+    background: transparent;
+    color: var(--blood-red) !important;
+    border: 1px solid var(--blood-red);
+    padding: 8px 18px;
+    transition: 0.3s;
+}
+
+.btn-danger:hover {
+    background: var(--blood-red);
+    color: #fff !important;
+    box-shadow: 0 0 15px rgba(255, 0, 51, 0.6);
+}
+
+/* Hero Section */
+.hero {
+    padding: 160px 0 120px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 30%, rgba(40, 0, 5, 0.5) 0%, rgba(5, 5, 5, 1) 70%);
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-family: 'Creepster', cursive;
+    font-size: 72px;
+    color: #fff;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px var(--blood-red), 0 0 20px var(--blood-red);
+}
+
+.hero p {
+    font-size: 18px;
+    color: #888;
+    margin-bottom: 40px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn-primary {
+    background: var(--blood-red);
+    color: #fff;
+    padding: 14px 28px;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(255, 0, 51, 0.4);
+}
+
+.btn-primary:hover {
+    background: #cc0029;
+    box-shadow: 0 0 25px rgba(255, 0, 51, 0.8);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #555;
+    border: 1px solid #333;
+    padding: 14px 28px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    border-color: #777;
+}
+
+/* Logs Section */
+.logs-section {
+    padding: 100px 0;
+    background: #080808;
+    border-top: 1px solid #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-header h2 {
+    font-family: 'Creepster', cursive;
+    font-size: 42px;
+    color: #ddd;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.section-header p {
+    color: #666;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.horror-card {
+    background: var(--card-bg);
+    border: 1px solid #222;
+    padding: 35px 30px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.horror-card:hover {
+    border-color: var(--blood-red);
+    box-shadow: inset 0 0 15px rgba(255, 0, 51, 0.1), 0 0 15px rgba(255, 0, 51, 0.2);
+    transform: translateY(-5px);
+}
+
+.card-code {
+    color: var(--blood-red);
+    font-size: 12px;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.horror-card h3 {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.horror-card p {
+    color: #777;
+    font-size: 14px;
+}
+
+/* Warning Section */
+.warning-section {
+    padding: 120px 0;
+    text-align: center;
+}
+
+.warning-box {
+    max-width: 600px;
+    border: 1px dashed var(--blood-red);
+    padding: 50px;
+    background: rgba(20, 0, 0, 0.2);
+}
+
+.warning-box h2 {
+    font-family: 'Creepster', cursive;
+    color: var(--blood-red);
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.warning-box p {
+    margin-bottom: 25px;
+}
+
+.btn-danger-large {
+    background: var(--blood-red);
+    color: #fff;
+    border: none;
+    padding: 15px 35px;
+    font-family: 'Special Elite', monospace;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: 0.3s;
+    box-shadow: 0 0 20px rgba(255, 0, 51, 0.5);
+}
+
+.btn-danger-large:hover {
+    background: #ff1a47;
+    box-shadow: 0 0 40px rgba(255, 0, 51, 0.9);
+}
+
+.hidden-scare {
+    display: none;
+    margin-top: 25px;
+    color: var(--blood-red);
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    animation: glitch-anim 0.2s infinite;
+}
+
+/* Footer */
+.footer {
+    background: #020202;
+    padding: 40px 0;
+    text-align: center;
+    border-top: 1px solid #111;
+}
+
+.footer p {
+    font-size: 13px;
+    color: #444;
+}
+
+.red-text {
+    color: var(--blood-red) !important;
+    margin-top: 5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+/* Эффект вздрагивания страницы при стуке */
+@keyframes shake {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-10px, 5px); }
+    40% { transform: translate(10px, -5px); }
+    60% { transform: translate(-5px, -10px); }
+    80% { transform: translate(5px, 10px); }
+    100% { transform: translate(0, 0); }
+}
+
+.shake-effect {
+    animation: shake 0.4s ease-in-out;
+}
+
+/* Глаза в верхнем углу */
+.creepy-eyes {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 12px;
+    z-index: 998;
+    background: rgba(0,0,0,0.8);
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 50px;
+}
+
+.eye {
+    width: 25px;
+    height: 25px;
+    background: #fff;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
+}
+
+.pupil {
+    width: 9px;
+    height: 9px;
+    background: #000;
+    border-radius: 50%;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+/* Экран скримера */
+.jumpscare-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.scare-face {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #ff0033 0%, #300 60%, #000 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 100px #ff0033;
+    animation: pulse-face 0.2s infinite alternate;
+}
+
+@keyframes pulse-face {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.15); }
+}
+
+.scare-title {
+    font-family: 'Creepster', cursive;
+    color: #fff;
+    font-size: 64px;
+    margin-top: 30px;
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px #ff0033;
+}
+/* Эффект вздрагивания страницы */
+@keyframes shake {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-10px, 5px); }
+    40% { transform: translate(10px, -5px); }
+    60% { transform: translate(-5px, -10px); }
+    80% { transform: translate(5px, 10px); }
+    100% { transform: translate(0, 0); }
+}
+
+.shake-effect {
+    animation: shake 0.4s ease-in-out;
+}
+
+/* Глаза в нижнем углу */
+.creepy-eyes {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 12px;
+    z-index: 998;
+    background: rgba(0,0,0,0.8);
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 50px;
+}
+
+.eye {
+    width: 25px;
+    height: 25px;
+    background: #fff;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
+}
+
+.pupil {
+    width: 9px;
+    height: 9px;
+    background: #000;
+    border-radius: 50%;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+/* Окно скримера с видео по ссылке */
+.jumpscare-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+
+.scare-content {
+    width: 80vw;
+    height: 80vh;
+    max-width: 900px;
+}
+
+.scare-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}

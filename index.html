@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARNING // SUBJECT UNKNOWN</title>
+    
+    <!-- Зловещие шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Special+Elite&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Эффект старых помех -->
+    <div class="crt-overlay"></div>
+
+    <!-- Жуткие глаза, следящие за курсором -->
+    <div class="creepy-eyes">
+        <div class="eye"><div class="pupil"></div></div>
+        <div class="eye"><div class="pupil"></div></div>
+    </div>
+
+    <!-- Аудиоплеер для фоновой музыки -->
+    <audio id="horror-audio" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Аудио для стука -->
+    <audio id="knock-audio">
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c320d91241.mp3?filename=door-knock-1-104975.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- СКРИМЕР ПО ССЫЛКЕ (YouTube) -->
+    <div id="jumpscare-overlay" class="jumpscare-screen" onclick="closeJumpscare()">
+        <div class="scare-content">
+            <iframe id="scare-iframe" src="" allow="autoplay" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <!-- Шапка / Системный статус + Таймер до 28 сентября 2029 -->
+    <header class="header">
+        <div class="container nav-container">
+            <div class="system-status">
+                <span class="blink-dot"></span> До конца человечества осталось: <span id="countdown">00д 00ч 00м 00с</span>
+            </div>
+            
+            <!-- Кнопка музыки -->
+            <div class="audio-control">
+                <button id="audio-btn" onclick="toggleAudio()">🎵 AUDIO: OFF</button>
+            </div>
+
+            <nav class="nav">
+                <a href="#logs">EXHIBITS</a>
+                <a href="#warning">WARNING</a>
+                <a href="#contact" class="btn-danger">ESCAPE</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Главный экран -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="glitch-text" data-text="DO NOT LOOK BEHIND YOU">DO NOT LOOK BEHIND YOU</h1>
+            <p>Someone is knocking at your door. They claim they are human. Do not believe them.</p>
+            <div class="hero-buttons">
+                <a href="#logs" class="btn-primary">ACCESS FILES</a>
+                <a href="#" class="btn-secondary" onclick="alert('It is already too late to leave.'); return false;">CLOSE TAB</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция с архивами -->
+    <section id="logs" class="logs-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>CLASSIFIED INCIDENTS</h2>
+                <p>Recovered data from Sector 9.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="horror-card">
+                    <div class="card-code">LOG #042</div>
+                    <h3>The Whispering Wall</h3>
+                    <p>Subjects reported scratching sounds coming from behind the drywall.</p>
+                </div>
+                <div class="horror-card">
+                    <div class="card-code">LOG #089</div>
+                    <h3>Empty Mirror</h3>
+                    <p>Dr. Alistair noticed his reflection stopped blinking.</p>
+                </div>
+                <div class="horror-card">
+                    <div class="card-code">LOG #666</div>
+                    <h3>The Midnight Broadcast</h3>
+                    <p>An unknown radio frequency broadcasting coordinates in total darkness.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Интерактивная зона / Кнопка триггера скримера -->
+    <section id="warning" class="warning-section">
+        <div class="container warning-box">
+            <h2>⚠️ SYSTEM OVERRIDE</h2>
+            <p>Do not click the button below under any circumstances.</p>
+            <button class="btn-danger-large" onclick="triggerJumpscare()">DO NOT CLICK</button>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer" id="contact">
+        <div class="container footer-content">
+            <p>&copy; 2026 Sector 9 Facility. All rights terminated.</p>
+            <p class="red-text">RUN WHILE YOU CAN.</p>
+        </div>
+    </footer>
+
+    <!-- СКРИПТЫ -->
+    <script>
+        // 1. СТУК ЧЕРЕЗ 7 СЕКУНД
+        setTimeout(() => {
+            const knockSound = document.getElementById('knock-audio');
+            knockSound.play().catch(e => console.log("Автозапуск звука заблокирован"));
+            
+            document.body.classList.add('shake-effect');
+            setTimeout(() => {
+                document.body.classList.remove('shake-effect');
+            }, 500);
+        }, 7000);
+
+        // 2. ТАЙМЕР ДО 28 СЕНТЯБРЯ 2029 ГОДА
+        const targetDate = new Date("September 28, 2029 00:00:00").getTime();
+        const countdownEl = document.getElementById('countdown');
+
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                countdownEl.textContent = "ВРЕМЯ ВЫШЛО";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdownEl.textContent = `${days}д ${hours}ч ${minutes}м ${seconds}с`;
+        }, 1000);
+
+        // 3. ГЛАЗА, СЛЕДЯЩИЕ ЗА КУРСОРОМ
+        document.addEventListener('mousemove', (event) => {
+            const pupils = document.querySelectorAll('.pupil');
+            pupils.forEach(pupil => {
+                const eye = pupil.parentElement;
+                const rect = eye.getBoundingClientRect();
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
+                const radian = Math.atan2(event.clientY - y, event.clientX - x);
+                const distance = Math.min(rect.width / 4, Math.hypot(event.clientX - x, event.clientY - y) / 10);
+                
+                const pX = Math.cos(radian) * distance;
+                const pY = Math.sin(radian) * distance;
+                pupil.style.transform = `translate(${pX}px, ${pY}px)`;
+            });
+        });
+
+        // 4. СКРИМЕР С ВИДЕО ПО ССЫЛКЕ
+        function triggerJumpscare() {
+            const scare = document.getElementById('jumpscare-overlay');
+            const iframe = document.getElementById('scare-iframe');
+            
+            // Замените ссылку ниже на свою из YouTube (обязательно с /embed/ и ?autoplay=1)
+            iframe.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1";
+            scare.style.display = 'flex';
+        }
+
+        function closeJumpscare() {
+            const scare = document.getElementById('jumpscare-overlay');
+            const iframe = document.getElementById('scare-iframe');
+            
+            scare.style.display = 'none';
+            iframe.src = ""; // Останавливает видео при закрытии
+        }
+
+        // 5. УПРАВЛЕНИЕ МУЗЫКОЙ
+        const audio = document.getElementById('horror-audio');
+        const audioBtn = document.getElementById('audio-btn');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                audioBtn.textContent = "🎵 AUDIO: OFF";
+                audioBtn.style.color = "var(--blood-red)";
+            } else {
+                audio.play().catch(e => console.log(e));
+                audioBtn.textContent = "🔊 AUDIO: ON";
+                audioBtn.style.color = "#00ff66";
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
+</body>
+</html>
